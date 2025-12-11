@@ -2,29 +2,40 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "site/static/img" # Folder where user uploaded files should go
-public_folder: "img"
+collections:
+  - name: "articles"
+    label: "Archives & Reports"
+    folder: "content/articles"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string", hint: "The title of your deep-dive report or article."}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Summary/Teaser", name: "summary", widget: "text", hint: "The 2-3 sentence summary for the homepage."}
+      - {label: "Full Content", name: "body", widget: "markdown"}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
 
-- name: "jargon"
-  label: "Jargon Vault"
-  folder: "content/jargon"
-  create: true
-  slug: "{{slug}}"
-  fields:
-    - {label: "Term", name: "title", widget: "string", hint: "e.g., Proof-of-Physical-Work (PoPW)"}
-    - {label: "Simple Definition", name: "definition_simple", widget: "text", hint: "A 1-sentence layperson explanation."}
-    - {label: "In the Machines Context", name: "body", widget: "markdown", hint: "Your Micro-Explainer content here. The core analysis."}
-    - {label: "Related Protocol (Optional)", name: "related_protocol", widget: "relation", collection: "protocols", value_field: "title", search_fields: ["title"], display_fields: ["title"]}
+  - name: "jargon"
+    label: "Jargon Vault"
+    folder: "content/jargon"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Term", name: "title", widget: "string", hint: "e.g., Proof-of-Physical-Work (PoPW)"}
+      - {label: "Simple Definition", name: "definition_simple", widget: "text", hint: "A 1-sentence layperson explanation."}
+      - {label: "In the Machines Context", name: "body", widget: "markdown", hint: "Your Micro-Explainer content here. The core analysis."}
+      - {label: "Related Protocol (Optional)", name: "related_protocol", widget: "relation", collection: "protocols", value_field: "title", search_fields: ["title"], display_fields: ["title"], required: false}
 
-- name: "protocols"
-  label: "Ecosystem Protocols"
-  folder: "content/protocols"
-  create: true
-  slug: "{{slug}}"
-  fields:
-    - {label: "Project Name", name: "title", widget: "string", hint: "e.g., Render Network"}
-    - {label: "Sector", name: "sector", widget: "select", options: ["DePIN-Compute", "Agentic-L2", "Robotics-Hardware", "Data-DAO"], hint: "Primary category for filtering the map."}
-    - {label: "Token Ticker", name: "ticker", widget: "string", hint: "e.g., RNDR, FET"}
-    - {label: "Key Mechanism", name: "mechanism", widget: "string", hint: "e.g., Proof-of-Physical-Work, ZK-ML"}
-    - {label: "Status / Stage", name: "stage", widget: "select", options: ["Mainnet", "Beta", "Testnet", "Acquired"], hint: "Used for coloring nodes on the Ecosystem Map."}
-    - {label: "Full Description", name: "body", widget: "markdown", hint: "Detailed information for the Protocol Deep Dive pages."}
+  - name: "protocols"
+    label: "Ecosystem Protocols"
+    folder: "content/protocols"
+    create: true
+    slug: "{{slug}}"}
+    fields:
+      - {label: "Project Name", name: "title", widget: "string", hint: "e.g., Render Network, Bittensor"}
+      - {label: "Token Ticker", name: "ticker", widget: "string", hint: "e.g., RNDR, TAO, FET"}
+      - {label: "Sector", name: "sector", widget: "select", options: ["DePIN-Compute", "Agentic-AI", "Data-Indexing", "Decentralized-Storage", "Robotics-Hardware"], hint: "Primary category for filtering the map (e.g., DePIN, Agentic)."}
+      - {label: "Key Mechanism", name: "mechanism", widget: "string", hint: "e.g., Proof-of-Physical-Work, ZK-ML, A2A Protocol"}
+      - {label: "Status / Stage", name: "stage", widget: "select", options: ["Mainnet", "Beta", "Testnet", "Acquired"], hint: "Used for coloring nodes on the Ecosystem Map."}
+      - {label: "Snapshot Link", name: "snapshot_link", widget: "string", required: false, hint: "Link to your latest article/report on this protocol."}
+      - {label: "Description", name: "body", widget: "markdown", hint: "Detailed information for the Protocol Deep Dive pages."}
